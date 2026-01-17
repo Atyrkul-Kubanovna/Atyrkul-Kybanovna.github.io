@@ -1,37 +1,24 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const accordionTriggers = document.querySelectorAll(".accordion-trigger");
+  const accordionItems = document.querySelectorAll(".accordion-item");
 
-  accordionTriggers.forEach((trigger) => {
+  accordionItems.forEach((item) => {
+    const trigger = item.querySelector(".accordion-trigger");
+    if (!trigger) return;
+
     trigger.addEventListener("click", () => {
-      const item = trigger.closest(".accordion-item");
       const isOpen = item.classList.toggle("open");
-      trigger.setAttribute("aria-expanded", isOpen);
+      trigger.setAttribute("aria-expanded", isOpen ? "true" : "false");
     });
   });
 
-  const resultsToggle = document.querySelector('[data-toggle="results"]');
-  const resultsList = document.querySelector("[data-collapsible]");
+  const benefitsList = document.querySelector("[data-collapsible]");
+  const toggleButton = document.querySelector('[data-toggle="benefits"]');
 
-  if (resultsToggle && resultsList) {
-    resultsToggle.addEventListener("click", () => {
-      const collapsed = resultsList.classList.toggle("collapsed");
-      resultsToggle.textContent = collapsed ? "Көбүрөөк" : "Жашыруу";
-    });
-  }
-
-  const form = document.getElementById("lead-form");
-
-  if (form) {
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
-
-      alert("Рахмат! Биз сиз менен байланышабыз.");
-      form.reset();
+  if (benefitsList && toggleButton) {
+    benefitsList.classList.add("collapsed");
+    toggleButton.addEventListener("click", () => {
+      const collapsed = benefitsList.classList.toggle("collapsed");
+      toggleButton.textContent = collapsed ? "Дагы көрүү" : "Жашыруу";
     });
   }
 });
